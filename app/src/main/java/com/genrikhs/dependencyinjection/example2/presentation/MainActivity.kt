@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.genrikhs.dependencyinjection.databinding.ActivityMainBinding
 import com.genrikhs.dependencyinjection.example2.di.DaggerApplicationComponent
+import java.lang.System.currentTimeMillis
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -11,19 +12,27 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModel: ExampleViewModel
 
-    private val component = DaggerApplicationComponent.create()
+    //first way
+    /*   private val component by lazy {
+           DaggerApplicationComponent.builder()
+               .context(application)
+               .milliSeconds(currentTimeMillis())
+               .build()
+       }*/
 
+    //second way
+    private val component by lazy {
+        DaggerApplicationComponent.factory()
+            .create(application, currentTimeMillis())
+    }
 
     private lateinit var binding: ActivityMainBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        component.inject(this)
         super.onCreate(savedInstanceState)
+        component.inject(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel.method()
-
-
     }
 }
