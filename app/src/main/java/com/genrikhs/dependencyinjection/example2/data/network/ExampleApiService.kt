@@ -2,7 +2,6 @@ package com.genrikhs.dependencyinjection.example2.data.network
 
 import android.content.Context
 import android.util.Log
-import android.util.LogPrinter
 import com.genrikhs.dependencyinjection.R
 import javax.inject.Inject
 
@@ -15,7 +14,7 @@ class ExampleApiService @Inject constructor(
             LOG_TAG, "ExampleApiService ${
                 context
                     .getString(R.string.app_name)
-            } $milliSeconds"
+            } $milliSeconds $this"
         )
     }
 

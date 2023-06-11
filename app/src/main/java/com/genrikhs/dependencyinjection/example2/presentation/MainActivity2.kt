@@ -1,6 +1,5 @@
 package com.genrikhs.dependencyinjection.example2.presentation
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -9,7 +8,7 @@ import com.genrikhs.dependencyinjection.example2.ExampleApp
 import com.genrikhs.dependencyinjection.example2.domain.ViewModelFactory
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity2 : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     private val component by lazy {
         (application as ExampleApp).component
             .activityComponentFactory()
-            .create("MY_ID", "MY_NAME")
+            .create("MY_ID2", "MY_NAME2")
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -44,13 +43,6 @@ class MainActivity : AppCompatActivity() {
         component.inject(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel.method()
         viewModel2.method()
-
-        binding.textView.setOnClickListener {
-            Intent(this, MainActivity2::class.java).apply {
-                startActivity(this)
-            }
-        }
     }
 }
